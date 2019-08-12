@@ -1,0 +1,1 @@
+export const API:string = 'https://unsplash-rip-api.herokuapp.com';
