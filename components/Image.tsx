@@ -12,7 +12,13 @@ export default function Image({
         img {
           width: 100%;
           height: auto;
-          padding: 1rem;
+          padding: 0.5rem;
+        }
+
+        @media (min-width: 601px) {
+          img {
+            padding: 1rem;
+          }
         }
       `}</style>
     </>

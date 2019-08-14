@@ -11,12 +11,7 @@ export default function MasonryGrid({
   images,
   columns = 3
 }): React.FunctionComponentElement<Props> {
-  const blocks = [];
-  let current = 0;
-  while (current < columns) {
-    blocks.push([]);
-    current++;
-  }
+  const blocks = Array.from({ length: columns }, block => []);
 
   for (let i = 0; i < images.length; i++) {
     const bucket = i % columns;
@@ -36,13 +31,14 @@ export default function MasonryGrid({
           display: flex;
           flex: 0 0 100%;
           width: 100%;
+          max-width: 1200px;
+          margin: auto;
         }
 
         .block {
           display: flex;
           flex-direction: column;
-          flex: 0 0 33.33333%;
-          width: 33%;
+          flex: 0 0 ${100 / columns}%;
         }
       `}</style>
     </div>
