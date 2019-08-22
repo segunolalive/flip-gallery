@@ -2,10 +2,10 @@ import * as React from 'react';
 import axios from 'axios';
 import { NextPage } from 'next';
 
-import MasonryGrid from '../components/MasonryGrid';
 import { API } from '../utils/constants';
 
-import { Iimage } from '../interefaces';
+import { Iimage } from '../interfaces';
+import PhotoGrid from '../components/PhotoGrid';
 
 type Props = {
   images: Iimage[];
@@ -14,14 +14,15 @@ type Props = {
 export default function HomePage({ images = [] }) {
   return (
     <>
-      <MasonryGrid images={images} columns={4} />
+      <PhotoGrid images={images} columns={5} />
       <style jsx global>{`
-        :root, body {
+        :root,
+        body {
           width: 100%;
           min-height: 100vh;
           margin: 0;
           padding: 0;
-          font-size: 62.5%;
+          font-size: 0.625rem;
         }
         * {
           box-sizing: border-box;
@@ -34,7 +35,7 @@ export default function HomePage({ images = [] }) {
 HomePage.getInitialProps = async function() {
   const page = 1;
   try {
-    const data = await axios.get(`${API}/photos?_page=${page}&_limit=21`);
+    const data = await axios.get(`${API}/photos?_page=${page}&_limit=30`);
     const images = await data.data.map(image => {
       image.alt = image.user.name;
       image.src = image.url;

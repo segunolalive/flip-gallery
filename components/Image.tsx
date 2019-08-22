@@ -1,24 +1,21 @@
 import * as React from 'react';
-import { Iimage } from '../interefaces';
+import { Iimage } from '../interfaces';
 
 export default function Image({
   src,
-  alt = ''
+  alt = '',
+  ...props
 }): React.FunctionComponentElement<Iimage> {
   return (
     <>
-      <img src={src} alt={alt} />
+      <img src={src} alt={alt} {...props} />
       <style jsx>{`
         img {
           width: 100%;
-          height: auto;
-          padding: 0.5rem;
-        }
-
-        @media (min-width: 601px) {
-          img {
-            padding: 1rem;
-          }
+          height: 100%;
+          object-fit: cover;
+          border-radius: inherit;
+          background-color: #eeeeee;
         }
       `}</style>
     </>
