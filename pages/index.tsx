@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Header from '../components/Header';
 import axios from 'axios';
 import { NextPage } from 'next';
 
@@ -14,6 +15,7 @@ type Props = {
 export default function HomePage({ images = [] }) {
   return (
     <>
+      <Header search={() => {}} />
       <PhotoGrid images={images} columns={5} />
       <style jsx global>{`
         :root,
