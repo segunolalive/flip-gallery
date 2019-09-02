@@ -24,7 +24,8 @@ export default function HomePage({ images = [] }) {
           min-height: 100vh;
           margin: 0;
           padding: 0;
-          font-size: 0.625rem;
+          font-size: calc(0.625rem + 0.3vmin);
+          --time: 0.5s;
         }
         * {
           box-sizing: border-box;
@@ -38,7 +39,7 @@ HomePage.getInitialProps = async function() {
   const page = 1;
   try {
     const data = await axios.get(`${API}/photos?_page=${page}&_limit=30`);
-    const images = await data.data.map(image => {
+    const images = data.data.map(image => {
       image.alt = image.user.name;
       image.src = image.url;
       return image;
