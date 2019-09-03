@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Image from './Image';
+import ReactModal from 'react-modal';
 import Modal from './Modal';
 import { Iimage } from '../interfaces';
 
@@ -7,6 +8,8 @@ type Props = {
   images: Iimage[];
   columns: number;
 };
+
+ReactModal.setAppElement('#main');
 
 export default function PhotoGrid({
   images,
@@ -49,15 +52,56 @@ export default function PhotoGrid({
         ))}
       </div>
 
-      {showModal ? (
-        <Modal
-          image={selectedData}
-          flipKey={selected}
-          parent={parentRef}
-          close={closeModal}
-        />
-      ) : null}
+      <ReactModal
+        isOpen={showModal}
+        onRequestClose={closeModal}
+        portalClassName="modal-portal"
+        style={{ content: { top: 0, left: 0, bottom: 0, right: 0 } }}
+      >
+        <button className="close" onClick={closeModal} name="close modal">
+          <svg
+            aria-hidden="true"
+            focusable="false"
+            data-prefix="fas"
+            data-icon="arrow-left"
+            role="img"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 448 512"
+          >
+            <path
+              fill="currentColor"
+              d="M257.5 445.1l-22.2 22.2c-9.4 9.4-24.6 9.4-33.9 0L7 273c-9.4-9.4-9.4-24.6 0-33.9L201.4 44.7c9.4-9.4 24.6-9.4 33.9 0l22.2 22.2c9.5 9.5 9.3 25-.4 34.3L136.6 216H424c13.3 0 24 10.7 24 24v32c0 13.3-10.7 24-24 24H136.6l120.5 114.8c9.8 9.3 10 24.8.4 34.3z"
+            />
+          </svg>
+        </button>
+        <Modal image={selectedData} flipKey={selected} />
+      </ReactModal>
       <style jsx>{`
+        .close {
+          position: absolute;
+          display: flex;
+          place-content: center;
+          top: 1rem;
+          left: 1rem;
+          height: 3rem;
+          width: 3rem;
+          z-index: 10;
+          color: #41535d;
+          background: white;
+          border: 0.3rem solid currentColor;
+          border-radius: 50%;
+          cursor: pointer;
+        }
+        @media (min-width: 801px) {
+          .close {
+            top: 3rem;
+            left: 3rem;
+          }
+        }
+        .close svg {
+          height: 2rem;
+          width: 2rem;
+        }
         .parent {
           position: relative;
           width: 100%;

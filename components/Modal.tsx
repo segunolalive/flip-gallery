@@ -1,14 +1,14 @@
 import * as React from 'react';
 import ModalContent from './ModalContent';
 
-export default function Modal({ image, close, flipKey, parent }) {
+export default function Modal({ image, flipKey }) {
   const imageRef = React.useRef(null);
   const [modalImage] = React.useState(null);
 
   React.useLayoutEffect(() => {
-    const [source, image] = parent.current.querySelectorAll(
+    const [source, image] = Array.from(document.querySelectorAll(
       `[data-flip-key='${flipKey}']`
-    );
+    ));
     const sourceRect = source.getBoundingClientRect();
     const imageRect = image.getBoundingClientRect();
     image.style.setProperty(
@@ -24,7 +24,7 @@ export default function Modal({ image, close, flipKey, parent }) {
   }, []);
 
   return (
-    <div className="modal-container" onClick={close}>
+    <div className="modal-container">
       <div className="modal">
         <img
           ref={imageRef}

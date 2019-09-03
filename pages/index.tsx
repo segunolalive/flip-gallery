@@ -25,7 +25,7 @@ export default function HomePage({ images = [] }) {
   }
 
   return (
-    <main>
+    <main id="main">
       <Header search={handleSearch} />
       <PhotoGrid images={gallery} columns={5} />
       <style jsx global>{`
