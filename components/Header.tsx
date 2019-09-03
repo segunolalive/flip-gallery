@@ -14,11 +14,11 @@ export default function Header({ search }) {
 
   return (
     <header className="header">
-      <form action="" onSubmit={handleSearch}>
+      <form action="" onSubmit={handleSearch} aria-label="search">
         <input
           type="search"
           inputMode="search"
-          placeholder="enter your query"
+          placeholder="search"
           value={value}
           onChange={handleChange}
           onBlur={handleSearch}
@@ -48,17 +48,18 @@ export default function Header({ search }) {
 
           input {
             flex: 1 1 2rem;
-            border: 0.4rem solid rgba(163, 195, 212, 0.6);
-            border-top-left-radius: 0.4rem;
+            border: none;
+            border-top-left-radius: 0.5rem;
             border-bottom-left-radius: 0.4rem;
-            border-right: none;
+            box-shadow: inset 0 0 0 0.2rem rgba(133, 213, 255, 0.9);
             padding: inherit;
             font-size: 1.8rem;
+            transition: box-shadow calc(var(--time) * 0.6);
           }
 
           input:focus {
             box-shadow: inset 0 0 0 0.2rem rgba(133, 213, 255, 0.9),
-              0 0 0.5rem 0.4rem rgba(0, 155, 236, 0.3);
+              0 0 0.5rem 0.4rem rgba(0, 155, 236, 0.5);
             outline: none;
             border: none;
           }
@@ -70,9 +71,9 @@ export default function Header({ search }) {
             border: none;
             padding: 1rem;
             font-size: 1.8rem;
-            color: #bbbbbb;
+            color: #adbac2;
             background: #005988;
-            transition: all 0.3s ease-in-out;
+            transition: all calc(var(--time) * 0.6) ease-in-out;
             cursor: pointer;
           }
           button:hover,

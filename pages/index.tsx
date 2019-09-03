@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Header from '../components/Header';
-import axios from 'axios';
 import { NextPage } from 'next';
 
 import { API } from '../utils/constants';
@@ -13,10 +12,22 @@ type Props = {
 };
 
 export default function HomePage({ images = [] }) {
+  const [gallery, setGallery] = React.useState(images);
+
+  async function handleSearch(query) {
+    try {
+      const response = await search(query);
+      const images = response.data.results;
+      setGallery(images);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
-    <>
-      <Header search={() => {}} />
-      <PhotoGrid images={images} columns={5} />
+    <main>
+      <Header search={handleSearch} />
+      <PhotoGrid images={gallery} columns={5} />
       <style jsx global>{`
         :root,
         body {
@@ -31,19 +42,18 @@ export default function HomePage({ images = [] }) {
           box-sizing: border-box;
         }
       `}</style>
-    </>
+    </main>
   );
 }
 
+async function search(query, pageSize = 50) {
+  return await API.get(`/?page=1&query=${query}&per_page=${pageSize}`);
+}
+
 HomePage.getInitialProps = async function() {
-  const page = 1;
   try {
-    const data = await axios.get(`${API}/photos?_page=${page}&_limit=30`);
-    const images = data.data.map(image => {
-      image.alt = image.user.name;
-      image.src = image.url;
-      return image;
-    });
+    const response = await search('nigeria');
+    const images = response.data.results;
     return { images };
   } catch (error) {
     console.error(error);

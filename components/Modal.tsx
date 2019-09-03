@@ -3,6 +3,7 @@ import ModalContent from './ModalContent';
 
 export default function Modal({ image, close, flipKey, parent }) {
   const imageRef = React.useRef(null);
+  const [modalImage] = React.useState(null);
 
   React.useLayoutEffect(() => {
     const [source, image] = parent.current.querySelectorAll(

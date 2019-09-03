@@ -35,15 +35,16 @@ export default function PhotoGrid({
   return (
     <div className="parent" ref={parentRef}>
       <div className="container">
-        {images.map(({ id, src, alt }) => (
+        {images.map(({ id, urls, alt_description }, index) => (
           <div
             tabIndex={0}
             className="img-wrapper"
             key={id}
             onClick={handleClick}
             data-flip-key={id}
+            data-index={index}
           >
-            <Image src={src} alt={alt} />
+            <Image src={urls.regular} alt={alt_description} />
           </div>
         ))}
       </div>
