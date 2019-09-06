@@ -16,6 +16,7 @@ export default function PhotoGrid({
   columns = 3
 }): React.FunctionComponentElement<Props> {
   const [showModal, setShowModal] = React.useState(false);
+  const [modalClosing, setModalClosing] = React.useState(false);
   const [selected, setSelected] = React.useState(null);
   const [selectedData, setSelectedData] = React.useState({ src: '', alt: '' });
   const parentRef = React.useRef(null);
@@ -31,8 +32,12 @@ export default function PhotoGrid({
   };
 
   const closeModal = () => {
-    setSelected(false);
-    setShowModal(false);
+    setModalClosing(true);
+    setTimeout(() => {
+      setSelected(null);
+      setShowModal(false);
+      setModalClosing(false);
+    }, 1000);
   };
 
   return (
@@ -56,7 +61,18 @@ export default function PhotoGrid({
         isOpen={showModal}
         onRequestClose={closeModal}
         portalClassName="modal-portal"
-        style={{ content: { top: 0, left: 0, bottom: 0, right: 0 } }}
+        style={{
+          content: {
+            top: 0,
+            left: 0,
+            bottom: 0,
+            right: 0,
+            background: 'transparent'
+          },
+          overlay: {
+            background: 'transparent'
+          }
+        }}
       >
         <button className="close" onClick={closeModal} name="close modal">
           <svg
@@ -74,7 +90,7 @@ export default function PhotoGrid({
             />
           </svg>
         </button>
-        <Modal image={selectedData} flipKey={selected} />
+        <Modal image={selectedData} flipKey={selected} closing={modalClosing} />
       </ReactModal>
       <style jsx>{`
         .close {
@@ -98,10 +114,19 @@ export default function PhotoGrid({
             left: 3rem;
           }
         }
+
         .close svg {
           height: 2rem;
           width: 2rem;
         }
+
+        .close:hover,
+        .close:focus {
+          background: #41535d;
+          color: white;
+          outline: none;
+        }
+
         .parent {
           position: relative;
           width: 100%;

@@ -7,9 +7,9 @@ const loremText = `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
   pariatur cumque aspernatur voluptatibus laudantium natus! Fugit quae, nesciunt
   consequatur, ab id aperiam incidunt error atque`;
 
-export default function ModalContent() {
+export default function ModalContent({ closing }) {
   return (
-    <div className="content">
+    <div className="content" data-closing={closing}>
       <h1> Hello Weird world</h1>
       <p>{loremText}</p>
       <p>{loremText}</p>
@@ -28,10 +28,32 @@ export default function ModalContent() {
             overflow: auto;
             flex: 1;
             z-index: -1;
-            transform: translate(0, -200%);
+            transform: translate3d(0, -200%, 0);
             animation: slide-down var(--time) ease-out var(--time)
                 forwards;
             }
+          }
+
+          @keyframes slide-down {
+            to {
+              transform: translateY(0%);
+            }
+          }
+
+          @keyframes slide-up {
+            to {
+              transform: translateY(-200%);
+            }
+          }
+
+          [data-closing='false'].content {
+              animation-delay: var(--time);
+            }
+
+          [data-closing='true'].content {
+            transform: translateY(0%);
+            animation-name: slide-up;
+            animation-delay: 0;
           }
 
           h1 {
@@ -48,8 +70,18 @@ export default function ModalContent() {
               width: 100%;
               height: 100%;
               transform: translate(-100%, 0);
-              animation: slide-right var(--time) cubic-bezier(0.5, 0, 0.5, 1) var(--time)
+              animation: slide-right var(--time) cubic-bezier(0.5, 0, 0.5, 1)
                 forwards;
+              }
+
+            [data-closing='false'].content {
+              animation-delay: var(--time);
+            }
+
+            [data-closing='true'].content {
+              transform: translateX(0%);
+              animation-name: slide-left;
+              animation-delay: 0;
             }
           }
 
@@ -59,9 +91,9 @@ export default function ModalContent() {
             }
           }
 
-          @keyframes slide-down {
+          @keyframes slide-left {
             to {
-              transform: translateY(0%);
+              transform: translateX(-200%);
             }
           }
         `}

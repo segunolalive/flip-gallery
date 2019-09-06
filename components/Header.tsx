@@ -29,6 +29,7 @@ export default function Header({ search }) {
         {`
           .header {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             width: 100%;

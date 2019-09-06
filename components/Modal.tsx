@@ -1,14 +1,13 @@
 import * as React from 'react';
 import ModalContent from './ModalContent';
 
-export default function Modal({ image, flipKey }) {
+export default function Modal({ image, flipKey, closing }) {
   const imageRef = React.useRef(null);
-  const [modalImage] = React.useState(null);
 
   React.useLayoutEffect(() => {
-    const [source, image] = Array.from(document.querySelectorAll(
-      `[data-flip-key='${flipKey}']`
-    ));
+    const [source, image] = Array.from(
+      document.querySelectorAll(`[data-flip-key='${flipKey}']`)
+    );
     const sourceRect = source.getBoundingClientRect();
     const imageRect = image.getBoundingClientRect();
     image.style.setProperty(
@@ -24,7 +23,7 @@ export default function Modal({ image, flipKey }) {
   }, []);
 
   return (
-    <div className="modal-container">
+    <div className="modal-container" data-closing={closing}>
       <div className="modal">
         <img
           ref={imageRef}
@@ -33,7 +32,7 @@ export default function Modal({ image, flipKey }) {
           alt={image.alt}
         />
       </div>
-      <ModalContent />
+      <ModalContent closing={closing} />
       <style jsx>
         {`
           .modal-container {
@@ -46,12 +45,17 @@ export default function Modal({ image, flipKey }) {
             flex-direction: column;
             justify-content: flex-start;
             background-color: rgba(76, 104, 119, 0.7);
+            transition: opacity calc(var(--time) * 0.6) var(--time) ease-out;
+          }
+
+          [data-closing='true'] .modal {
+            background-color: transparent;
           }
 
           .modal {
             display: flex;
             flex-direction: column;
-            background-color: #41535d;
+            background-color: rgb(17, 35, 45);
             max-height: 50%;
           }
 
@@ -74,14 +78,29 @@ export default function Modal({ image, flipKey }) {
             }
           }
 
-          .modal img {
+          img {
             width: 100%;
             height: auto;
             max-height: 100%;
             object-fit: contain;
             transform-origin: 0 0;
             transform: var(--transform);
+          }
+
+          [data-closing='false'] img {
             animation: show var(--time) cubic-bezier(0.5, 0, 0.5, 1) forwards;
+          }
+
+          @keyframes closing {
+            to {
+              transform: var(--transform);
+            }
+          }
+
+          [data-closing='true'] img {
+            transform: translateX(0) translateY(0) scaleX(1) scaleY(1);
+            animation: closing var(--time) cubic-bezier(0.5, 0, 0.5, 1)
+              var(--time) forwards;
           }
         `}
       </style>
