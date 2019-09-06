@@ -45,18 +45,27 @@ export default function Modal({ image, flipKey, closing }) {
             flex-direction: column;
             justify-content: flex-start;
             background-color: rgba(76, 104, 119, 0.7);
-            transition: opacity calc(var(--time) * 0.6) var(--time) ease-out;
-          }
-
-          [data-closing='true'] .modal {
-            background-color: transparent;
           }
 
           .modal {
             display: flex;
-            flex-direction: column;
             background-color: rgb(17, 35, 45);
             max-height: 50%;
+          }
+
+          @keyframes fade {
+            60% {
+              opacity: 0.4;
+              background-color: transparent;
+            }
+            to {
+              opacity: 0;
+              background-color: transparent;
+            }
+          }
+
+          [data-closing='true'] .modal {
+            animation: fade var(--time) var(--time) ease-out;
           }
 
           @media (min-width: 801px) {
