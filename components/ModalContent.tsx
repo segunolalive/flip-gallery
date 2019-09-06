@@ -29,9 +29,7 @@ export default function ModalContent({ closing }) {
             flex: 1;
             z-index: -1;
             transform: translate3d(0, -200%, 0);
-            animation: slide-in var(--time) ease-out var(--time)
-                forwards;
-            }
+            animation: slide-in var(--time) ease-out var(--time) forwards;
           }
 
           @keyframes slide-in {
@@ -47,13 +45,14 @@ export default function ModalContent({ closing }) {
           }
 
           [data-closing='false'].content {
-              animation-delay: var(--time);
-            }
+            animation: slide-in var(--time) cubic-bezier(0.5, 0, 0.5, 1)
+              var(--time) forwards;
+          }
 
           [data-closing='true'].content {
             transform: translateY(0%);
-            animation-name: slide-out;
-            animation-delay: 0;
+            animation: slide-out var(--time) cubic-bezier(0.5, 0, 0.5, 1)
+              forwards;
           }
 
           h1 {
@@ -70,18 +69,10 @@ export default function ModalContent({ closing }) {
               width: 100%;
               height: 100%;
               transform: translate(-100%, 0);
-              animation: slide-in var(--time) cubic-bezier(0.5, 0, 0.5, 1)
-                forwards;
-              }
-
-            [data-closing='false'].content {
-              animation-delay: var(--time);
             }
 
             [data-closing='true'].content {
               transform: translateX(0%);
-              animation-name: slide-out;
-              animation-delay: 0;
             }
 
             @keyframes slide-in {
