@@ -10,7 +10,22 @@ const loremText = `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
 export default function ModalContent({ closing }) {
   return (
     <div className="content" data-closing={closing}>
-      <h1> Hello Weird world</h1>
+      <h1> Hello Weird World</h1>
+      <p>
+        This project was inspired by the amazing{' '}
+        <a href="https://twitter.com/sarah_edo" target="_blank">
+          Sara Drasner's
+        </a>{' '}
+        <a href="https://page-transitions.com" target="_blank">
+          Page transitions project
+        </a>. Code is hosted on{' '}
+        <a href="https://github.com/segunolalive/flip-gallery" target="_blank">
+          Github
+        </a>. Images come from{' '}
+        <a href="https://unsplash.com" target="_blank">
+          Unsplash
+        </a>
+      </p>
       <p>{loremText}</p>
       <p>{loremText}</p>
       <p>{loremText}</p>
@@ -21,6 +36,18 @@ export default function ModalContent({ closing }) {
       <p>{loremText}</p>
       <style jsx>
         {`
+          a {
+            color: currentColor;
+            display: inline-block;
+            padding: 0 0.5rem;
+          }
+
+          a:hover,
+          a:focus,
+          a:active {
+            background: #cde8ff;
+          }
+
           .content {
             background-color: white;
             color: #41535d;
@@ -29,7 +56,6 @@ export default function ModalContent({ closing }) {
             flex: 1;
             z-index: -1;
             transform: translate3d(0, -200%, 0);
-            animation: slide-in var(--time) ease-out var(--time) forwards;
           }
 
           @keyframes slide-in {
