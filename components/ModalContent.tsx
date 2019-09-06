@@ -29,18 +29,18 @@ export default function ModalContent({ closing }) {
             flex: 1;
             z-index: -1;
             transform: translate3d(0, -200%, 0);
-            animation: slide-down var(--time) ease-out var(--time)
+            animation: slide-in var(--time) ease-out var(--time)
                 forwards;
             }
           }
 
-          @keyframes slide-down {
+          @keyframes slide-in {
             to {
               transform: translateY(0%);
             }
           }
 
-          @keyframes slide-up {
+          @keyframes slide-out {
             to {
               transform: translateY(-200%);
             }
@@ -52,7 +52,7 @@ export default function ModalContent({ closing }) {
 
           [data-closing='true'].content {
             transform: translateY(0%);
-            animation-name: slide-up;
+            animation-name: slide-out;
             animation-delay: 0;
           }
 
@@ -70,7 +70,7 @@ export default function ModalContent({ closing }) {
               width: 100%;
               height: 100%;
               transform: translate(-100%, 0);
-              animation: slide-right var(--time) cubic-bezier(0.5, 0, 0.5, 1)
+              animation: slide-in var(--time) cubic-bezier(0.5, 0, 0.5, 1)
                 forwards;
               }
 
@@ -80,20 +80,20 @@ export default function ModalContent({ closing }) {
 
             [data-closing='true'].content {
               transform: translateX(0%);
-              animation-name: slide-left;
+              animation-name: slide-out;
               animation-delay: 0;
             }
-          }
 
-          @keyframes slide-right {
-            to {
-              transform: translateX(0%);
+            @keyframes slide-in {
+              to {
+                transform: translateX(0%);
+              }
             }
-          }
 
-          @keyframes slide-left {
-            to {
-              transform: translateX(-200%);
+            @keyframes slide-out {
+              to {
+                transform: translateX(-200%);
+              }
             }
           }
         `}
