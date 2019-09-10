@@ -44,28 +44,28 @@ export default function Modal({ image, flipKey, closing }) {
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
-            background-color: rgba(76, 104, 119, 0.7);
+            background: rgba(76, 104, 119, 0.7);
+          }
+
+          .modal::before {
+            position: absolute;
+            content: '';
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background-color: rgb(17, 35, 45);
+            transition: opacity calc(var(--time) * 0.6) var(--time);
+          }
+
+          [data-closing='true'] .modal::before {
+            opacity: 0;
           }
 
           .modal {
             display: flex;
-            background-color: rgb(17, 35, 45);
             max-height: 50%;
-          }
-
-          @keyframes fade {
-            60% {
-              opacity: 0.4;
-              background-color: transparent;
-            }
-            to {
-              opacity: 0;
-              background-color: transparent;
-            }
-          }
-
-          [data-closing='true'] .modal {
-            animation: fade var(--time) var(--time) ease-out;
+            position: relative;
           }
 
           @media (min-width: 801px) {
@@ -109,7 +109,7 @@ export default function Modal({ image, flipKey, closing }) {
           [data-closing='true'] img {
             transform: translateX(0) translateY(0) scaleX(1) scaleY(1);
             animation: closing var(--time) cubic-bezier(0.5, 0, 0.5, 1)
-              var(--time) forwards;
+              calc(var(--time) * 2) forwards;
           }
         `}
       </style>

@@ -37,12 +37,12 @@ export default function PhotoGrid({
       setSelected(null);
       setShowModal(false);
       setModalClosing(false);
-    }, 1000);
+    }, 1500);
   };
 
   return (
     <div className="parent" ref={parentRef}>
-      <div className="container">
+      <div className="container" hidden={showModal}>
         {images.map(({ id, urls, alt_description }, index) => (
           <div
             tabIndex={0}
@@ -97,10 +97,10 @@ export default function PhotoGrid({
           position: absolute;
           display: flex;
           place-content: center;
-          top: 1rem;
-          left: 1rem;
-          height: 3rem;
-          width: 3rem;
+          top: 2.5rem;
+          left: 2.5rem;
+          height: 5rem;
+          width: 5rem;
           z-index: 10;
           color: #41535d;
           background: white;
@@ -144,6 +144,11 @@ export default function PhotoGrid({
           gap: 1rem;
           grid-auto-rows: 3rem;
           padding: 1rem;
+          transition: opacity var(--time);
+        }
+
+        .container[hidden] {
+          opacity: 0;
         }
 
         @media (min-width: 601px) {
