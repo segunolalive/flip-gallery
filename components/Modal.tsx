@@ -44,7 +44,7 @@ export default function Modal({ image, flipKey, closing }) {
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
-            background: rgba(76, 104, 119, 0.7);
+            background: rgba(76, 104, 119, 0.1);
           }
 
           .modal::before {
@@ -101,8 +101,12 @@ export default function Modal({ image, flipKey, closing }) {
           }
 
           @keyframes closing {
+            from {
+              object-fit: cover;
+            }
             to {
               transform: var(--transform);
+              object-fit: cover;
             }
           }
 

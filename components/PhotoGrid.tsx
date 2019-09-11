@@ -42,7 +42,7 @@ export default function PhotoGrid({
 
   return (
     <div className="parent" ref={parentRef}>
-      <div className="container" hidden={showModal}>
+      <div className="container" data-hide={showModal && modalClosing}>
         {images.map(({ id, urls, alt_description }, index) => (
           <div
             tabIndex={0}
@@ -144,11 +144,27 @@ export default function PhotoGrid({
           gap: 1rem;
           grid-auto-rows: 3rem;
           padding: 1rem;
-          transition: opacity var(--time);
+          // transition: opacity var(--time);
         }
 
-        .container[hidden] {
-          opacity: 0;
+        .container[data-hide='false'] {
+          animation: show var(--time);
+        }
+
+        .container[data-hide='true'] {
+          animation: hide var(--time) forwards;
+        }
+
+        @keyframes show {
+          to {
+            opacity: 1;
+          }
+        }
+
+        @keyframes hide {
+          to {
+            opacity: 0;
+          }
         }
 
         @media (min-width: 601px) {
